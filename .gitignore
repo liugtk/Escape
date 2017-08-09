@@ -91,6 +91,8 @@ EscapeGame/Content/StarterContent
 *.VC.db
 *.suo
 *.ipch
+*.VC.opendb
+*.sln
 
 
 
