@@ -4,8 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Classes/Components/InputComponent.h" 
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "Graber.generated.h"
-
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ESCAPEGAME_API UGraber : public UActorComponent
@@ -26,7 +27,10 @@ public:
 
 private:
 	float Reach = 100.f;
-
-		
+	UPhysicsHandleComponent *  PhysicasHandle = nullptr;
+	UInputComponent * InputComponent = nullptr;
+	//ray-cast and grab what's in reach
+	void Grab();
+	void Release();
 	
 };

@@ -2,6 +2,7 @@
 
 #include "Graber.h"
 #include "Engine/World.h"
+
 #include "GameFramework/Controller.h"
 #include "GameFramework/PlayerController.h"
 
@@ -27,10 +28,39 @@ void UGraber::BeginPlay()
 	Super::BeginPlay();
 	UE_LOG(LogTemp, Warning, TEXT("Graber reporting duty"));
 
-	// ...
+	// look for attached physics  handle
+	PhysicasHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+	if (PhysicasHandle) {
+		//Physical handle is found 
+	}
+	else {
+		UE_LOG(LogTemp, Error, TEXT("%s missing physics handle component"), *GetOwner()->GetName())
+	}
+
+
+	// look for attached Input Component (only appears at runtime)
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+	if (InputComponent) {
+		//Physical handle is found 
+		UE_LOG(LogTemp, Warning, TEXT("%s Found input component"), *GetOwner()->GetName());
+		//bind the input axis
+		InputComponent->BindAction("Grab", IE_Pressed, this, &UGraber::Grab);
+		InputComponent->BindAction("Grab", IE_Released, this, &UGraber::Release);
+	}
+	else {
+		UE_LOG(LogTemp, Error, TEXT("%s missing physics handle component"), *GetOwner()->GetName())
+	}
 	
 }
 
+void UGraber::Grab() {
+	//
+	UE_LOG(LogTemp, Warning, TEXT("Grab pressed"))
+}
+
+void UGraber::Release() {
+	UE_LOG(LogTemp, Warning, TEXT("Grab Released"))
+}
 
 // Called every frame
 void UGraber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
